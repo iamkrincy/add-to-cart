@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <title>Add to cart</title>
+    <style>
+        body{
+            background-color: #3b3b3b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .card-img-top{
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            padding: 6px;
+        }
+        .card-img-top {
+           transition: transform 0.5s ease-in-out;
+        }
+
+        .card-img-top:hover {
+           animation: zoom 0.5s normal;
+        }
+
+        @keyframes zoom {
+           0% {
+             transform: scale(0.5);
+            }
+           100% {
+            transform: scale(1);
+            }
+        }
+        header{
+            background-color: #f37704;
+            color: #000;
+            width: 100%;
+            height: 50px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h2{
+            font-size: 20px;
+            color: white;
+            text-transform: uppercase;
+            padding-left: 70px;
+        }
+        #carts{
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+        }
+        span{
+            font-size: 15px; 
+            padding: 3px;
+            background-color: white;
+            color: #000;
+            border-radius: 50%;
+        }
+        .header-right{
+            margin-left: auto;
+        }
+        h3{
+            color: #fff;
+            font-size: 19px;
+            text-transform: capitalize;
+            padding: 10px;
+        }
+        .card-title{
+            color: red;
+            font-weight: 600;
+        }
+    </style>
+  </head>
+  <body>
+    
+
+    <header>
+        <h2><i class="fa-solid fa-utensils"></i> Food Delight</h2>
+        <div class="header-right">
+            <a href="cart.html" id="carts" align="center"> 
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h3>Discover the Best Food</h3>
+        <div class="row" id="product">
+        </div>
+    </div>
+
+    <script>
+        let Products = [
+            {
+                id : 1,
+                name : "Dhosa",
+                price : 180,
+                qty : 1,
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8ycQho5biF0TZLGOuDtp2jStnUNAqqzlXhg&s"
+            },
+
+            {
+                id : 2,
+                name : "Pizza",
+                price : 280,
+                qty : 1,
+                image : "https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/81dbec27093b409d19631f0ba0780ea8"
+            },
+
+            {
+                id : 3,
+                name : "Manchurian",
+                price : 250,
+                qty : 1,
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqh519lQfJGut48hnN4O8I0tFmKkbMNXsRAw&s"
+            },
+
+            {
+                id : 4,
+                name : "Idli",
+                price : 180,
+                qty : 1,
+                image : "https://www.funfoodfrolic.com/wp-content/uploads/2020/07/Rava-Idli-Thumbnail.jpg"
+            },
+
+            {
+                id : 5,
+                name : "Khaman",
+                price : 180,
+                qty : 1,
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRD4YkA6cbGBh7Beyo5Vl0QY4Y2FOYgqQHLQ&s"
+            },
+
+            {
+                id : 6,
+                name : "Brownie",
+                price : 600,
+                qty : 1,
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu8RkJm4GlZNDKx0sPIhiTWn1KVyIEuoG8bw&s"
+            },
+
+            {
+                id : 7,
+                name : "Khichdi",
+                price : 180,
+                qty : 1,
+                image : "https://shahprachi.com/wp-content/uploads/2020/09/khichadi-scaled.jpg"
+            },
+
+            {
+                id : 8,
+                name : "Burger",
+                price : 230,
+                qty : 1,
+                image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMQfKvvVM4YbqGY1_Yh_8YM1a0z8KHo9u81Q&s"
+            },
+        ];
+
+        const viewproduct = () =>{
+            let tbl = "";
+            Products.map((value,index) =>{
+                 tbl += `
+                 <div class="col-md-3 my-3">
+                <div class="card" style="width: 17rem;">
+                    <img src="${value.image}" class="card-img-top me-3" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${value.name}</h5>
+                      <p class="card-text">Rs.${value.price}/-</p>
+                      <button onclick="addTocart(${value.id})" class="btn btn-dark">  <i class="fa-solid fa-cart-shopping"></i> </button>
+                    </div>
+                  </div>
+            </div>
+                 `
+                 document.getElementById("product").innerHTML = tbl ;
+            });
+        }
+
+        viewproduct();
+
+        const addTocart = (id) =>{
+           let cart =JSON.parse(localStorage.getItem("cart")) || [];
+
+           let item = Products.find(p => p.id == id);
+           if(!item)return;
+
+           if(!cart.some(p => p.id == id)){
+                cart.push(item);
+                localStorage.setItem("cart",JSON.stringify(cart));
+           }
+           else{
+            alert("Product Alredy in Cart");
+           }
+
+           updateCartCount();
+        }
+
+        const updateCartCount = () =>{
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            document.getElementById("cart-count").innerHTML = cart.length;
+        }
+
+        updateCartCount();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
